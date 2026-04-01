@@ -1,6 +1,11 @@
 streamlit
 google-cloud-storage
+google-auth
+requests
+python-dotenv
 openai
-dotenv
-google-genia
+google-genai
+Pillow
 json5
+protobuf
+

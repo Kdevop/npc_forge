@@ -8,7 +8,12 @@ import re
 import json
 
 from utilities.character_gen_helpers import system_prompt, extract_json, build_flux_prompt, load_placeholder_image_b64
-from storage.local_storage  import save_new_character, attach_image_to_character
+
+# for local deployment and testing
+# from storage.local_storage  import save_new_character, attach_image_to_character
+
+# for live deployment and testing to live storage
+from storage.gcs_storage import save_new_character, attach_image_to_character
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -37,7 +42,6 @@ def generate_character(concept: str = "") -> dict:
     )
 
     raw_response = model_resp.choices[0].message.content
-    print("Raw LLM Response Char Gen: ", raw_response)
     # Extract JSON from the LLM output
     character_data = extract_json(raw_response)
 
@@ -50,7 +54,6 @@ def generate_character(concept: str = "") -> dict:
     return character_data
 
 def generate_image_openrouter(prompt: str):
-    print("This is the prompt for image generation:", prompt)
 
     if not prompt or not prompt.strip():
         raise ValueError("Image prompt is empty")
@@ -72,8 +75,6 @@ def generate_image_openrouter(prompt: str):
     }
 
     response = requests.post(url, headers=headers, json=payload).json()
-    print("This is the data for image:", response)
-
     try:
         message = response["choices"][0]["message"]
 
@@ -81,7 +82,6 @@ def generate_image_openrouter(prompt: str):
             image_url = message["images"][0]["image_url"]["url"]
             return image_url
 
-        print("Image extraction failed:", response)
         raise ValueError("No image returned")
 
     except Exception:
@@ -101,7 +101,6 @@ def create_character_controller(prompt: str):
     if USE_PLACEHOLDER:
         b64_image = load_placeholder_image_b64()
     else:
-        print(image_prompt)
         b64_image = generate_image_openrouter(image_prompt)
 
     attach_image_to_character(character_data["id"], b64_image)
