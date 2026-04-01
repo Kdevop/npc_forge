@@ -1,0 +1,25 @@
+{
+  "id": "",
+  "name": "",
+  "description": "",
+  "personality": {
+    "traits": [],
+    "strengths": [],
+    "weaknesses": []
+  },
+  "appearance": {
+    "age": "",
+    "gender": "",
+    "race": "",
+    "visual_description": ""
+  },
+  "emotion": {
+    "current": "neutral",
+    "intensity": 0.0
+  },
+  "memory": {
+    "facts": [],
+    "recent_events": []
+  },
+  "history": []
+}
