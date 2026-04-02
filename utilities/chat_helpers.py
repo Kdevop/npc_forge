@@ -99,6 +99,7 @@ Use vivid sensory detail and emotional expression.
 You are speaking directly to the user in character.
 Use natural dialogue.
 Respond with emotional nuance.
+YOU MUST Base you responses on your PERSONALITY TRAITS and your CURRENT EMOTIONAL state.
 """
 
     return [
